@@ -22,3 +22,9 @@ class Intercambio:
             self.confirmaciones[estudiante] = True
         else:
             self.confirmaciones[estudiante] = False
+
+    def verificar_confirmaciones(self):
+        if all(self.confirmaciones.values()):
+            self.estado = "Exitoso"
+        else:
+            self.estado = "Fallido"

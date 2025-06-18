@@ -29,10 +29,16 @@ Característica: Confirmación de intercambio de libros
       | 2025-11-06 18:00    | 2025-11-05 12:00      | 2025-11-05 16:00      |2025-11-06 18:00  |
       | 2025-11-07 10:00    | 2025-11-06 08:30      | 2025-11-06 09:00      |2025-11-07 10:00 |
 
-"""
-  Escenario: Intercambio no confirmado por ambos estudiantes
-    Dado que solo uno o ninguno de los estudiantes ha confirmado el intercambio antes de la fecha límite
+
+  Esquema del escenario: Intercambio no confirmado por ambos estudiantes
+    Dado que dos estudiantes han acordado un intercambio con fecha límite "<fecha_limite>"
+    Y que solo uno o ninguno de los estudiantes ha confirmado el intercambio antes de la fecha límite
     Cuando se alcanzó la fecha límite
     Entonces el intercambio se registra como fallido
 
-"""
+  Ejemplos:
+      | fecha_limite        | fecha_confirmacion_1 | fecha_confirmacion_2 | fecha_actual |
+      | 2025-11-06 18:00    | 2025-11-05 12:00      | 2025-12-05 16:00      |2025-11-06 18:00  |
+      | 2025-11-07 10:00    | 2025-12-06 08:30      | 2025-12-06 09:00      |2025-11-07 10:00 |
+
+

@@ -58,4 +58,27 @@ def step_impl(context):
 
 @step("el intercambio se registra como exitoso")
 def step_impl(context):
-    pass
+    context.intercambio.verificar_confirmaciones()
+    assert context.intercambio.estado == "Exitoso"
+
+"""
+    Intercambio no confirmado por ambos estudiantes
+"""
+
+@step("que solo uno o ninguno de los estudiantes ha confirmado el intercambio antes de la fecha límite")
+def step_impl(context):
+    intercambio = context.intercambio
+
+    fecha_confirmacion_1 = context.scenario._row["fecha_confirmacion_1"]
+    fecha_confirmacion_2 = context.scenario._row["fecha_confirmacion_2"]
+
+    intercambio.confirmar(intercambio.libro1.estudiante, fecha_confirmacion_1)
+    intercambio.confirmar(intercambio.libro2.estudiante, fecha_confirmacion_2)
+
+    assert not all(intercambio.confirmaciones.values())
+
+
+@step("el intercambio se registra como fallido")
+def step_impl(context):
+    context.intercambio.verificar_confirmaciones()
+    assert context.intercambio.estado == "Fallido"
